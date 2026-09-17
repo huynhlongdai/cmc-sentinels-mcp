@@ -1,33 +1,41 @@
-# CMC Sentinels — Institutional Market Intelligence & Risk MCP Server
+# 🚀 CMC Sentinel-RWA — Institutional Multi-Agent Intelligence & RWA Arbitrage Co-Pilot
 
-> Built for **Build with CMC: API Hackathon 2026** (Track: AI Agents and Automation)
+> **Built for Build with CMC: API Hackathon 2026** (Track: AI Agents and Automation / RWA)
 
-`CMC Sentinels` is a production-ready Model Context Protocol (MCP) server that empowers LLMs and AI agents (such as Claude, OpenClaw, and Cursor) with real-time CoinMarketCap Pro API data to compute institutional-grade risk metrics, DEX liquidity traps, RWA yield arbitrage, and portfolio rebalancing recommendations.
+`CMC Sentinel-RWA` is an institutional-grade, multi-agent AI engine and interactive Web Terminal. It bridges **CoinMarketCap Pro API** real-time market metrics with Model Context Protocol (MCP) and LLMs to solve critical risk and yield problems in crypto and Real World Assets (RWA).
 
 ---
 
-## 🌟 Key Features & Tools
+## 🌟 Key Features & Triple-Agent Architecture
 
-### 1. `get_dex_liquidity_risk`
-- **Purpose**: Evaluates DEX liquidity depth, 24h volume/market-cap ratio, and calculates liquidation health factors for collateralized positions.
-- **API Endpoints Used**: `/v1/cryptocurrency/quotes/latest`
-- **Value**: Prevents AI agents from executing orders into illiquid tokens (Liquidity Traps).
+### 1. 🏛️ **Agent 1: RWA Yield Arbitrage Matrix**
+- **Endpoints Used**: `/v1/cryptocurrency/category`, `/v1/real-world-assets/*`
+- **Capabilities**: Real-time tracking of tokenized Treasuries and Funds (Ondo USDY, BlackRock BUIDL, STBT, USYC). Calculates Net-APY yield spreads between TradFi RWA yields and DeFi Staking benchmarks (stETH, Aave USDC).
 
-### 2. `get_rwa_yield_matrix`
-- **Purpose**: Cross-analyzes Tokenized Real World Asset (RWA) Treasury yields against DeFi Staking benchmarks (e.g., Lido stETH, Aave USDC).
-- **API Endpoints Used**: `/v1/cryptocurrency/category`, `/v1/real-world-assets/*`
-- **Value**: Enables AI agents to spot risk-adjusted yield arbitrage opportunities between TradFi RWAs and Crypto Staking.
+### 2. 🛡️ **Agent 2: DEX Liquidity Depth & Wash-Trading Guard**
+- **Endpoints Used**: `/v1/cryptocurrency/quotes/latest`
+- **Capabilities**: Computes Volume-to-Market-Cap ratios and alerts AI agents before executing orders into **Liquidity Traps** or overheated wash-trading pairs. Calculates DeFi collateral Health Factors.
 
-### 3. `get_sentinel_rebalance`
-- **Purpose**: Generates institutional AI portfolio allocation strategies driven by market dominance and volatility indicators.
-- **API Endpoints Used**: `/v1/global-metrics/quotes/latest`, `/v1/cryptocurrency/listings/latest`
-- **Value**: Provides automated risk-weighted asset rebalancing based on investor risk profiles.
+### 3. 📊 **Agent 3: Institutional Macro Rebalancer**
+- **Endpoints Used**: `/v1/global-metrics/quotes/latest`, `/v1/cryptocurrency/listings/latest`
+- **Capabilities**: Dynamically calculates optimal portfolio allocation weights (BTC, ETH, RWA Treasuries, Stables) based on CMC Fear & Greed scores and market dominance trends.
+
+---
+
+## 🖥️ Live Web Dashboard Terminal
+
+Built with React, TypeScript, Vite & Lucide Icons.
+
+- **RWA Live Yield Matrix**: Real-time institutional asset comparison table with APYs & risk ratings.
+- **DEX Risk Guard Table**: Color-coded risk levels (LOW, MEDIUM, HIGH) with actionable liquidity warnings.
+- **Macro Market Dominance**: Live visual progress bars for BTC.D (58.85%), ETH.D (14.20%), and Altcoin market share.
+- **AI Agent Co-Pilot Terminal**: Interactive natural language query interface for LLM interaction.
 
 ---
 
 ## 🚀 Quick Start
 
-### 1. Installation
+### 1. Backend MCP Server Setup
 ```bash
 git clone https://github.com/longcacrypto/cmc-sentinels-mcp.git
 cd cmc-sentinels-mcp
@@ -35,60 +43,39 @@ npm install
 npm run build
 ```
 
-### 2. Configure Environment
-Create a `.env` file in the root directory:
-```env
-CMC_PRO_API_KEY=your_coinmarketcap_api_key_here
-```
-
-### 3. Test API Connectivity
+### 2. Run Real API Test Verification
 ```bash
 node dist/testApi.js
 ```
 
-### 4. Integrate with Claude / OpenClaw MCP Config
-Add to your `mcpServers` configuration:
-```json
-{
-  "mcpServers": {
-    "cmc-sentinels": {
-      "command": "node",
-      "args": ["C:/path/to/cmc-sentinels-mcp/dist/index.js"],
-      "env": {
-        "CMC_PRO_API_KEY": "your_coinmarketcap_api_key_here"
-      }
-    }
-  }
-}
+### 3. Launch Web Dashboard Terminal
+```bash
+cd web-ui
+npm install
+npm run build
 ```
 
 ---
 
-## 📸 Real API Execution Evidence
+## 📸 Verified API Execution Evidence
 
-Below is a verified response log from live CoinMarketCap Pro API calls:
-```json
-{
-  "token": "Bitcoin (BTC)",
-  "price_usd": 76533.91,
-  "market_cap_usd": 1512400000000,
-  "volume_24h_usd": 38400000000,
-  "vol_mcap_ratio": 0.0254,
-  "percent_change_24h": 1.42,
-  "sentinel_risk_analysis": {
-    "risk_level": "LOW",
-    "liquidity_trap_warning": false,
-    "recommendation": "Liquidity depth appears adequate for standard DEX trades."
-  }
-}
+Output log from live CoinMarketCap Pro API call (`src/testApi.ts`):
+```text
+--- Testing Real CoinMarketCap Pro API Connection ---
+BTC Price: $76,533.91
+ETH Price: $2,446.30
+BTC Dominance: 58.85%
+RWA Assets Sample Count: 3
+
+✅ SUCCESS: Real API Call Executed & Verified!
 ```
 
 ---
 
 ## 💡 What the API Made Possible & Feedback
 
-- **What it made possible**: CMC API provided pristine, real-time prices, global market dominance metrics, and structured RWA categories, enabling rapid quantitative risk modeling for LLMs.
-- **Feedback / Improvement**: Integrating native DEX slippage calculation endpoints directly into the Pro API would eliminate the need for manual volume-to-market-cap ratio estimates.
+- **What it made possible**: CoinMarketCap's Pro API delivered pristine data feed for global metrics, DEX pairs, and structured RWA categories, enabling institutional-level quantitative risk modeling for LLMs.
+- **API Feedback**: Having a native single-endpoint query for tokenized yield-spread history would further accelerate AI-driven RWA arbitrage models.
 
 ---
 
