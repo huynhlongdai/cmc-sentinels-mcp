@@ -1,8 +1,8 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-// https://vite.dev/config/
+// Use relative base so it works on both Vercel (/) and GitHub Pages (/cmc-sentinels-mcp/)
 export default defineConfig({
   plugins: [react()],
-  base: '/cmc-sentinels-mcp/',
+  base: './',
 })
